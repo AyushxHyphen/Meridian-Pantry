@@ -2,6 +2,12 @@
 
 A full-stack e-commerce demo: a small pantry/coffee shop built on a **Node.js + Express** REST API with a **vanilla HTML/CSS/JS** frontend served from the same server.
 
+# Meridian Pantry
+
+**🔗 Live demo: [meridian-pantry.onrender.com](https://meridian-pantry.onrender.com)**
+
+A full-stack e-commerce demo...
+
 ## Features
 
 - **Product catalog** — browse, filter by category, and search
