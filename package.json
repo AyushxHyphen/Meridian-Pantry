@@ -1,0 +1,18 @@
+{
+  "name": "meridian-pantry",
+  "version": "1.0.0",
+  "description": "Meridian Pantry — a full-stack e-commerce demo (Node.js + Express backend, vanilla HTML/CSS/JS frontend)",
+  "main": "server/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Pantry — Small-batch coffee, tea &amp; pantry goods</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/index.html" class="brand">Meridian<span>·</span>Pantry</a>
+      <nav class="main-nav">
+        <a href="/index.html#shop">Shop</a>
+        <a href="/index.html#about">Sourcing</a>
+        <a href="/cart.html" class="cart-link">
+          Cart <span class="cart-count" data-cart-count>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Roasted, blended &amp; jarred in small batches</p>
+        <h1>Good things,<br />sourced well.</h1>
+        <p>
+          We work directly with growers and small mills for coffee, tea, and
+          pantry staples that taste like where they came from. No blends of
+          convenience, no filler lots.
+        </p>
+        <a href="#shop" class="btn">Browse the shelf</a>
+      </div>
+      <div class="hero-signature">
+        <img src="https://picsum.photos/seed/hero/700/560" alt="Roasted coffee beans and dried spices arranged on a table" />
+        <div class="tag-line">
+          <span>No. 01 — This Week's Pick</span>
+          <span>Amber Sunrise Espresso</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" id="shop">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">The Shelf</p>
+        <h2>Everything in stock</h2>
+      </div>
+    </div>
+
+    <div class="filters">
+      <button class="filter-chip active" data-category="All">All</button>
+      <!-- category chips injected here -->
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search the shelf…" />
+      </div>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+      <!-- product cards injected here -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Meridian Pantry — a demo store</span>
+      <span>Built with Node.js, Express &amp; vanilla JS</span>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Pantry — Checkout</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/index.html" class="brand">Meridian<span>·</span>Pantry</a>
+      <nav class="main-nav">
+        <a href="/index.html#shop">Shop</a>
+        <a href="/index.html#about">Sourcing</a>
+        <a href="/cart.html" class="cart-link">
+          Cart <span class="cart-count" data-cart-count>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container checkout-page">
+    <div class="section-heading" style="margin-top:0;">
+      <div>
+        <p class="eyebrow">Step 2 of 2</p>
+        <h2>Checkout</h2>
+      </div>
+    </div>
+
+    <div class="checkout-layout">
+      <form id="checkout-form">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="field">
+          <label for="address">Shipping address</label>
+          <textarea id="address" name="address" required placeholder="Street, city, state, ZIP"></textarea>
+        </div>
+        <button type="submit" class="btn btn-block" id="place-order-btn">Place order</button>
+        <p class="form-status" id="form-status"></p>
+      </form>
+
+      <div>
+        <h3 style="font-family: var(--font-display); font-weight: 500; margin-top:0;">Order review</h3>
+        <div class="order-review" id="order-review"></div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="checkout-total">$0.00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Meridian Pantry — a demo store</span>
+      <span>Built with Node.js, Express &amp; vanilla JS</span>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/checkout.js"></script>
+</body>
+</html>

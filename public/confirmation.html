@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Pantry — Order Confirmed</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/index.html" class="brand">Meridian<span>·</span>Pantry</a>
+      <nav class="main-nav">
+        <a href="/index.html#shop">Shop</a>
+        <a href="/index.html#about">Sourcing</a>
+        <a href="/cart.html" class="cart-link">
+          Cart <span class="cart-count" data-cart-count>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container confirmation-page" id="confirmation-content">
+    <p class="empty-state">Loading order…</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Meridian Pantry — a demo store</span>
+      <span>Built with Node.js, Express &amp; vanilla JS</span>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/confirmation.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Pantry — Your Cart</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/index.html" class="brand">Meridian<span>·</span>Pantry</a>
+      <nav class="main-nav">
+        <a href="/index.html#shop">Shop</a>
+        <a href="/index.html#about">Sourcing</a>
+        <a href="/cart.html" class="cart-link">
+          Cart <span class="cart-count" data-cart-count>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container cart-page">
+    <div class="section-heading" style="margin-top:0;">
+      <div>
+        <p class="eyebrow">Step 1 of 2</p>
+        <h2>Your cart</h2>
+      </div>
+    </div>
+
+    <div class="cart-layout">
+      <div id="cart-lines">
+        <p class="empty-state">Loading cart…</p>
+      </div>
+
+      <aside class="summary-box">
+        <h3>Order summary</h3>
+        <div class="summary-row">
+          <span>Items</span>
+          <span id="summary-count">0</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="summary-total">$0.00</span>
+        </div>
+        <a href="/checkout.html" class="btn btn-block" id="checkout-btn" style="margin-top:18px;">
+          Continue to checkout
+        </a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Meridian Pantry — a demo store</span>
+      <span>Built with Node.js, Express &amp; vanilla JS</span>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    const cartLines = document.getElementById('cart-lines');
+    const summaryCount = document.getElementById('summary-count');
+    const summaryTotal = document.getElementById('summary-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    function cartLineHTML(product, item) {
+      return `
+        <div class="cart-line" data-line="${product.id}">
+          <img src="${product.image}" alt="${product.name}" />
+          <div>
+            <h4>${product.name}</h4>
+            <span class="unit-price">${formatPrice(product.price)} · ${product.unit}</span>
+          </div>
+          <div class="qty-control">
+            <button type="button" data-decrease="${product.id}" aria-label="Decrease quantity">–</button>
+            <input type="number" min="1" max="${product.stock}" value="${item.qty}" data-qty-input="${product.id}" />
+            <button type="button" data-increase="${product.id}" aria-label="Increase quantity">+</button>
+          </div>
+          <div style="text-align:right;">
+            <div class="price" data-line-subtotal>${formatPrice(product.price * item.qty)}</div>
+            <button class="remove-btn" data-remove="${product.id}">Remove</button>
+          </div>
+        </div>
+      `;
+    }
+
+    async function renderCart() {
+      const items = Cart.read();
+
+      if (items.length === 0) {
+        cartLines.innerHTML = `<p class="empty-state">Your cart is empty. <a href="/index.html" style="text-decoration:underline;">Go find something good.</a></p>`;
+        summaryCount.textContent = '0';
+        summaryTotal.textContent = formatPrice(0);
+        checkoutBtn.setAttribute('aria-disabled', 'true');
+        checkoutBtn.style.pointerEvents = 'none';
+        checkoutBtn.style.opacity = '0.45';
+        return;
+      }
+
+      checkoutBtn.style.pointerEvents = '';
+      checkoutBtn.style.opacity = '';
+
+      try {
+        const results = await Promise.all(items.map((i) => Api.getProduct(i.id)));
+        let total = 0;
+        let count = 0;
+
+        cartLines.innerHTML = results
+          .map(({ product }, idx) => {
+            const item = items[idx];
+            total += product.price * item.qty;
+            count += item.qty;
+            return cartLineHTML(product, item);
+          })
+          .join('');
+
+        summaryCount.textContent = count;
+        summaryTotal.textContent = formatPrice(total);
+      } catch (err) {
+        cartLines.innerHTML = `<p class="empty-state">Couldn't load your cart: ${err.message}</p>`;
+      }
+    }
+
+    cartLines.addEventListener('click', (e) => {
+      const inc = e.target.closest('[data-increase]');
+      const dec = e.target.closest('[data-decrease]');
+      const rem = e.target.closest('[data-remove]');
+
+      if (inc) {
+        const id = inc.dataset.increase;
+        const items = Cart.read();
+        const item = items.find((i) => i.id === id);
+        Cart.setQty(id, item.qty + 1);
+        renderCart();
+      }
+      if (dec) {
+        const id = dec.dataset.decrease;
+        const items = Cart.read();
+        const item = items.find((i) => i.id === id);
+        Cart.setQty(id, Math.max(1, item.qty - 1));
+        renderCart();
+      }
+      if (rem) {
+        Cart.remove(rem.dataset.remove);
+        renderCart();
+      }
+    });
+
+    cartLines.addEventListener('change', (e) => {
+      const input = e.target.closest('[data-qty-input]');
+      if (!input) return;
+      const id = input.dataset.qtyInput;
+      const qty = Math.max(1, Number(input.value) || 1);
+      Cart.setQty(id, qty);
+      renderCart();
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
